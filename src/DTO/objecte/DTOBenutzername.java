@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Monika
+ * Bürgi • Dietrich  • Federova  • Shabanova
  */
 public class DTOBenutzername implements Serializable{
     

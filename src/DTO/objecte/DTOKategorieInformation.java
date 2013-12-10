@@ -32,7 +32,7 @@ public class DTOKategorieInformation implements Serializable{
         this.ermaessigung = ermaessigung;
     }
 
-    public int getFreieplätze() {
+    public int getFreieplaetze() {
         return freieplätze;
     }
 
@@ -66,8 +66,8 @@ public class DTOKategorieInformation implements Serializable{
         this.preis = preis;
     }
 
-    public void setFreieplätze(int freieplätze) {
-        this.freieplätze = freieplätze;
+    public void setFreieplaetze(int freieplaetze) {
+        this.freieplätze = freieplaetze;
     }
 
     

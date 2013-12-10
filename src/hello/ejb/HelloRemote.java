@@ -16,10 +16,13 @@ import DTO.objecte.DTOKundeNeuSpeichern;
 import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOKundenDatenAendern;
 import DTO.objecte.DTOLoginDaten;
+import DTO.objecte.DTOMessage;
 import DTO.objecte.DTORollenList;
+import DTO.objecte.DTOTopicData;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
+import Exceptions.BenutzerInaktivException;
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
 import Exceptions.KarteNichtVerfuegbarException;
@@ -33,6 +36,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Remote;
+import javax.naming.NamingException;
 
 /**
  *
@@ -40,31 +44,46 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface HelloRemote {
- 
-   public DTORollenList login(DTOLoginDaten l) throws BenutzerNichtInDBException, FalschesPasswordExeption;
-    
-   public void neuenKundenSpeichern(DTOKundeNeuSpeichern k) throws SaveFailedException;
-
-   public void kundenDatenAendern(DTOKundenDatenAendern k) throws SaveFailedException;
   
-    public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler); 
-                   
-    public ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v);
-        
-    public DTOKategorieInformation getKategorieInfo(int id); 
-           
-    public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat);
+    public DTORollenList login(DTOLoginDaten l) 
+            throws RemoteException, BenutzerNichtInDBException, FalschesPasswordExeption;
+    
+    public void neuenKundenSpeichern(DTOKundeNeuSpeichern k) throws RemoteException, SaveFailedException ;
    
-    public ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) throws Exception;
-
-    public DTOKundenDaten getKundendatenNachID(int id) throws Exception;
-      
-    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws Exception, SaveFailedException,
-            KarteNichtVerfuegbarException;
+    public void kundenDatenAendern(DTOKundenDatenAendern k) throws RemoteException, SaveFailedException;
+   
+    public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien
+        (Date d, String ort, String kuenstler) throws RemoteException;
+        
+    public ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung
+        (DTOVeranstaltungAnzeigen v) throws RemoteException;
+        
+        public DTOKategorieInformation getKategorieInfo(int id) throws RemoteException;
+        
+    public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) throws RemoteException;
     
+    public ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) throws RemoteException, Exception;
+    
+    public DTOKundenDaten getKundendatenNachID(int id) throws Exception, RemoteException;
+   
+    public void verkaufSpeichern(List<DTOKarteBestellen> karten) 
+            throws Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException;
+   
     public void reservierungSpeichern(List<DTOKarteReservieren> karten) 
-            throws Exception, SaveFailedException, KarteNichtVerfuegbarException;
+            throws Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException;
     
-    public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) throws Exception;
+    public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) throws RemoteException;
+    
+    public List<DTOMessage> loadUnpublishedMessages()throws RemoteException;
+    
+    public ArrayList<DTOTopicData> getTopics() throws RemoteException;
+
+    public void publishMessage(DTOMessage message) throws RemoteException;
+
+     public void addMessageToClient(DTOMessage m)  throws RemoteException;
+    
+    public ArrayList<DTOTopicData> getTopicsVonBenutzer(String name) throws RemoteException;
+       
 }
 
+   

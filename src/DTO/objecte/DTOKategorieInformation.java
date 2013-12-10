@@ -66,8 +66,8 @@ public class DTOKategorieInformation implements Serializable{
         this.preis = preis;
     }
 
-    public void setFreieplaetze(int freieplaetze) {
-        this.freieplätze = freieplaetze;
+    public void setFreieplaetze(int freieplätze) {
+        this.freieplätze = freieplätze;
     }
 
     
